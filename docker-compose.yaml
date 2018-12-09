@@ -1,0 +1,30 @@
+version: '3'
+services:
+    app:
+        image: app
+        environment:
+            PORT: 3000
+            PROFILE_DIR: /var/pprof
+            DB_HOST: db
+            DB_PORT: 3306
+            DB_USER: root
+            DB_PASSWORD: password
+        volumes:
+            - "./log/app/pprof:/var/pprof"
+    db:
+        image: mysql:5.7
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+        ports:
+            - "3306:3306"
+        volumes:
+            - "./mysql/my.cnf:/etc/mysql/my.cnf:ro"
+            - "./log/mysql:/var/log/mysql"
+    lb:
+        image: nginx:1.14.2
+        ports:
+            - "8080:80"
+        volumes:
+            - "./nginx/nginx.conf:/etc/nginx/nginx.conf:ro"
+            - "./log/nginx:/var/log/nginx"
+
