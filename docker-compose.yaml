@@ -21,7 +21,7 @@ services:
             - "./mysql/my.cnf:/etc/mysql/my.cnf:ro"
             - "./log/mysql:/var/log/mysql"
     lb:
-        image: nginx:1.14.2
+        image: nginx:1.19
         ports:
             - "8080:80"
         volumes:
